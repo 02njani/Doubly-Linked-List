@@ -211,6 +211,7 @@ public class DoublyLinkedList<T> {
         T data = head.getData();
         if (size == 1) {
             head = null;
+            tail = null;
         } else {
             DoublyLinkedListNode<T> newHead = head.getNext();
             newHead.setPrevious(null);
@@ -235,6 +236,7 @@ public class DoublyLinkedList<T> {
         T data = tail.getData();
         if (size == 1) {
             tail = null;
+            head = null;
         } else {
             DoublyLinkedListNode<T> newTail = tail.getPrevious();
             newTail.setNext(null);
@@ -329,7 +331,11 @@ public class DoublyLinkedList<T> {
         if (data == null) {
             throw new IllegalArgumentException("The data you're trying to find is null (it points to nothing).");
         }
+        if (size == 0) {
+            throw new NoSuchElementException("There is nothing in the list to remove.");
+        }
         if (tail.getData().equals(data)) {
+            tail.getPrevious().setNext(null);
             return tail.getData();
         }
         DoublyLinkedListNode<T> curr = tail.getPrevious();
